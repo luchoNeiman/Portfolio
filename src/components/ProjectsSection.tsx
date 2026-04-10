@@ -64,7 +64,7 @@ const ProjectsSection = () => {
                   loading="lazy"
                   width={1280}
                   height={720}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-48 transition-transform duration-500 group-hover:scale-110 object-contain text-inherit bg-inherit"
                 />
               </div>
               <div className="p-6">
