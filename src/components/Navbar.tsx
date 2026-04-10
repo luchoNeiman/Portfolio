@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const navLinks = [
-  { label: "Sobre Mí", href: "#about" },
-  { label: "Habilidades", href: "#skills" },
-  { label: "Proyectos", href: "#projects" },
-  { label: "Contacto", href: "#contact" },
-];
+import { useLang } from "@/context/LanguageContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { lang, toggleLang, t } = useLang();
+
+  const navLinks = [
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.skills"), href: "#skills" },
+    { label: t("nav.projects"), href: "#projects" },
+    { label: t("nav.contact"), href: "#contact" },
+  ];
+
+  const cvUrl = lang === "es" ? "/cv/CV-Luciano-Neiman-ES.pdf" : "/cv/CV-Luciano-Neiman-EN.pdf";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -39,22 +43,59 @@ const Navbar = () => {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {l.label}
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={cvUrl}
+              download
+              className="flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+            >
+              <Download className="h-3.5 w-3.5" />
+              CV
+            </a>
+          </li>
+          <li>
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              aria-label="Toggle language"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              {lang === "es" ? "EN" : "ES"}
+            </button>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-foreground"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <a
+            href={cvUrl}
+            download
+            className="flex items-center gap-1 text-xs font-medium px-2.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+          >
+            <Download className="h-3 w-3" />
+            CV
+          </a>
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-1 text-xs font-medium px-2.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+          >
+            <Globe className="h-3 w-3" />
+            {lang === "es" ? "EN" : "ES"}
+          </button>
+          <button
+            onClick={() => setOpen(!open)}
+            className="text-foreground"
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

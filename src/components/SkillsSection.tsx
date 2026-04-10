@@ -1,28 +1,30 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Monitor, Server, Palette } from "lucide-react";
-
-const categories = [
-  {
-    icon: Monitor,
-    title: "Frontend",
-    skills: ["HTML5", "CSS3", "Bootstrap", "Tailwind", "JavaScript", "TypeScript", "React", "React Native", "Vue.js"],
-  },
-  {
-    icon: Server,
-    title: "Backend & Bases de Datos",
-    skills: ["Node.js", "PHP", "C#", "ASP.NET MVC", "Laravel 11", "SQL Server", "MySQL", "MongoDB", "MariaDB", "Supabase"],
-  },
-  {
-    icon: Palette,
-    title: "Diseño & Herramientas",
-    skills: ["Figma", "Photoshop", "Illustrator", "InDesign", "After Effects", "Media Encoder", "GitHub", "XAMPP", "ngrok"],
-  },
-];
+import { useLang } from "@/context/LanguageContext";
 
 const SkillsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLang();
+
+  const categories = [
+    {
+      icon: Monitor,
+      title: t("skills.frontend"),
+      skills: ["HTML5", "CSS3", "Bootstrap", "Tailwind", "JavaScript", "TypeScript", "React", "React Native", "Vue.js"],
+    },
+    {
+      icon: Server,
+      title: t("skills.backend"),
+      skills: ["Node.js", "PHP", "C#", "ASP.NET MVC", "Laravel 11", "SQL Server", "MySQL", "MongoDB", "MariaDB", "Supabase"],
+    },
+    {
+      icon: Palette,
+      title: t("skills.design"),
+      skills: ["Figma", "Photoshop", "Illustrator", "InDesign", "After Effects", "Media Encoder", "GitHub", "XAMPP", "ngrok"],
+    },
+  ];
 
   return (
     <section id="skills" className="py-24 bg-secondary/30">
@@ -33,7 +35,7 @@ const SkillsSection = () => {
           transition={{ duration: 0.5 }}
           className="text-3xl sm:text-4xl font-bold text-center mb-14"
         >
-          Mis <span className="text-gradient">Habilidades</span>
+          {t("skills.title1")} <span className="text-gradient">{t("skills.title2")}</span>
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -43,22 +45,31 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="glass rounded-2xl p-6"
+              whileHover={{ y: -8 }}
+              className="glass rounded-2xl p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
             >
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <motion.div
+                  className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
                   <cat.icon className="h-5 w-5 text-primary" />
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg">{cat.title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {cat.skills.map((s) => (
-                  <span
+                {cat.skills.map((s, si) => (
+                  <motion.span
                     key={s}
-                    className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: 0.3 + i * 0.1 + si * 0.04 }}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 cursor-default transition-colors hover:bg-primary hover:text-primary-foreground"
                   >
                     {s}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
