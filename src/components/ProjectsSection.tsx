@@ -43,7 +43,7 @@ const ProjectsSection = () => {
         : "Web application for real-time music event discovery. The development highlights the integration and consumption of the Ticketmaster Discovery API (RESTful), managing asynchronous external data to display detailed concert information, dates and artists through a dynamic interface.",
       image: soundspotImg,
       tags: ["Vue.js", "JavaScript (ES6+)", "REST APIs", "HTML5", "CSS3"],
-      github: "https://github.com/luchoNeiman/Soundpulse",
+      github: "https://github.com/luchoNeiman/Soundspot",
       liveUrl: "https://soundspot-pearl.vercel.app/",
     },
     {
@@ -60,7 +60,7 @@ const ProjectsSection = () => {
       liveLabel: lang === "es" ? "Deploy en proceso" : "Deploy in progress",
     },
     {
-      title: "Underground Cinema",
+      title: "Underground",
       shortDesc: lang === "es"
         ? "Red social para cinéfilos con Backend-as-a-Service."
         : "Social network for movie lovers with Backend-as-a-Service.",
@@ -69,6 +69,7 @@ const ProjectsSection = () => {
         : "Social network designed specifically for movie lovers. It implements a database management system and social interactions using a Backend-as-a-Service environment.",
       image: undergroundImg,
       tags: ["Vue 3", "Supabase", "JavaScript"],
+      github: "https://github.com/luchoNeiman/Underground",
       liveUrl: "https://underground-cinema.vercel.app/",
     },
     {
@@ -83,6 +84,17 @@ const ProjectsSection = () => {
       tags: ["Vue.js", "Vite", "CSS moderno"],
       github: "https://github.com/luchoNeiman/Soundpulse",
       liveLabel: lang === "es" ? "Deploy en proceso" : "Deploy in progress",
+    },
+    {
+      title: "UMAI UX Challenge",
+      shortDesc: lang === "es"
+        ? "Liderazgo en diseño visual y prototipado interactivo para solucionar problemáticas urbanas en un sprint de una semana."
+        : "Led visual design and interactive prototyping to solve urban issues in a one-week sprint.",
+      fullDesc: lang === "es"
+        ? "Participé de la competencia educativa de diseño de experiencia de usuario. Durante una semana trabajamos en equipo para idear, diseñar y prototipar una solución digital a problemáticas de la Ciudad de Buenos Aires. Tuvimos capacitaciones intensivas a cargo de profesionales de distintas empresas donde aprendimos sobre gestión de proyectos, diseño UI, diseño UX e investigación de usuarios."
+        : "I participated in an educational UX design competition. During one week we worked as a team to ideate, design and prototype a digital solution for urban issues in Buenos Aires. We received intensive training from professionals of various companies where we learned about project management, UI design, UX design and user research.",
+      image: undergroundImg,
+      tags: ["Figma", "UX Research", "Prototipado"],
     },
   ];
 
