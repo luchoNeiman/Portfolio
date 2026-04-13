@@ -177,7 +177,7 @@ const ProjectsSection = () => {
               <img
                 src={selected.image}
                 alt={selected.title}
-                className="w-full h-48 object-cover rounded-lg"
+                className="w-full h-48 object-cover rounded-lg mx-0 px-0 py-0"
               />
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {selected.fullDesc}
