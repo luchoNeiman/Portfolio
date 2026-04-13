@@ -164,7 +164,7 @@ const ProjectsSection = () => {
 
       {/* Project Modal */}
       <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto glass border-primary/10">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto bg-card/90 backdrop-blur-2xl border border-border/30 shadow-2xl shadow-primary/5">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">{selected?.title}</DialogTitle>
             <DialogDescription className="sr-only">
