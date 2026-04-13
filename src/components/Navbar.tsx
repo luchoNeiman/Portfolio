@@ -17,6 +17,16 @@ const Navbar = () => {
 
   const cvUrl = lang === "es" ? "/cv/CV-Luciano-Neiman-ES.pdf" : "/cv/CV-Luciano-Neiman-EN.pdf";
 
+  const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setOpen(false);
+    const id = href.replace("#", "");
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
@@ -112,7 +122,7 @@ const Navbar = () => {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => handleMobileNavClick(e, l.href)}
                     className="text-base font-medium text-foreground"
                   >
                     {l.label}
