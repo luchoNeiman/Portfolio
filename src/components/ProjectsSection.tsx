@@ -13,7 +13,7 @@ import {
 import soundspotImg from "@/assets/project-soundpulse.jpg";
 import umamiImg from "@/assets/project-umami.jpg";
 import undergroundImg from "@/assets/project-uxchallenge.jpg";
-import soundpulseImg from "@/assets/project-soundpulse.jpg";
+import soundpulseImg from "@/assets/project-soundpulse-updated.jpg";
 
 interface Project {
   title: string;
