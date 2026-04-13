@@ -171,7 +171,10 @@ const ProjectsSection = () => {
 
       {/* Project Modal */}
       <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto bg-card/85 text-foreground backdrop-blur-2xl border border-border/60 shadow-2xl shadow-black/20 dark:bg-card/75 dark:shadow-black/45">
+        <DialogContent
+          overlayClassName="bg-black/80 backdrop-blur-sm"
+          className="sm:max-w-lg max-h-[90vh] overflow-y-auto border border-slate-700/80 bg-slate-950/95 text-slate-100 backdrop-blur-2xl shadow-2xl shadow-black/50"
+        >
           <DialogHeader>
             <DialogTitle className="text-2xl font-heading font-bold">{selected?.title}</DialogTitle>
             <DialogDescription className="sr-only">
@@ -184,16 +187,16 @@ const ProjectsSection = () => {
               <img
                 src={selected.image}
                 alt={selected.title}
-                className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-secondary/40 border border-border/50"
+                className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-slate-900/80 border border-slate-700/70"
               />
-              <p className="text-sm font-body leading-relaxed text-muted-foreground">
+              <p className="text-sm font-body leading-relaxed text-slate-300">
                 {selected.fullDesc}
               </p>
               <div className="flex flex-wrap gap-2">
                 {selected.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-body font-medium rounded-full bg-primary/12 text-primary border border-primary/30 transition-colors hover:bg-accent/15 hover:text-accent hover:border-accent/40"
+                    className="px-3 py-1 text-xs font-body font-medium rounded-full border border-cyan-400/35 bg-cyan-500/10 text-cyan-200 transition-colors hover:border-cyan-300/60 hover:bg-cyan-400/20 hover:text-cyan-100"
                   >
                     {tag}
                   </span>
@@ -217,7 +220,7 @@ const ProjectsSection = () => {
                     variant="outline"
                     size="sm"
                     asChild
-                    className="border-primary/40 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                    className="border-cyan-400/45 bg-cyan-500/10 text-cyan-200 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-100"
                   >
                     <a href={selected.github} target="_blank" rel="noopener noreferrer">
                       <Github className="mr-2 h-4 w-4" />

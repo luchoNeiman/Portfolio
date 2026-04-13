@@ -28,9 +28,9 @@ const translations: Record<string, Record<Lang, string>> = {
     es: "Soy un Desarrollador Web Full Stack apasionado por la creación de experiencias digitales integrales. Mi perfil híbrido me permite combinar la lógica técnica del desarrollo backend y frontend con una mirada estratégica enfocada en el diseño UI/UX. Actualmente busco mi primera oportunidad profesional en el sector IT para seguir desarrollándome. A tu equipo puedo aportarle la capacidad de transformar ideas en productos funcionales y escalables, abarcando todo el ciclo de vida del proyecto: desde el prototipado interactivo en Figma hasta la implementación de arquitecturas robustas e interfaces inmersivas. Estoy listo para sumar proactividad, código limpio y resultados reales.",
     en: "I'm a Full Stack Web Developer passionate about creating comprehensive digital experiences. My hybrid profile allows me to combine the technical logic of backend and frontend development with a strategic focus on UI/UX design. I'm currently looking for my first professional opportunity in the IT sector to continue growing. I can bring to your team the ability to transform ideas into functional and scalable products, covering the entire project lifecycle: from interactive prototyping in Figma to the implementation of robust architectures and immersive interfaces. I'm ready to contribute proactivity, clean code and real results.",
   },
-  "about.h1": { es: "Lic. en Tecnología Multimedial (UMAI) – 3er año", en: "B.S. in Multimedia Technology (UMAI) – 3rd year" },
-  "about.h2": { es: "Tesis en curso – Diseño y Programación Web (Da Vinci)", en: "Thesis in progress – Web Design & Programming (Da Vinci)" },
-  "about.h3": { es: "Egresado con honores – Escuela Técnica ORT", en: "Graduated with honors – ORT Technical School" },
+  "about.h1": { es: "Lic. en Tecnología Multimedial (UMAI) - 3er año", en: "B.S. in Multimedia Technology (UMAI) - 3rd year" },
+  "about.h2": { es: "Tec. en Diseño y Programación Web (Escuela Da Vinci) - Tesis en curso", en: "Tech. in Web Design & Programming (Escuela Da Vinci) - Thesis in progress" },
+  "about.h3": { es: "Escuela Técnica ORT - Bachiller en informática con especialización en Diseño y desarrollo de aplicaciones web y móviles - Egresado con honores", en: "Technical School ORT - High School Diploma in Computer Science with a specialization in Web and Mobile Application Design and Development - Graduated with honors" },
 
   // Skills
   "skills.title1": { es: "Mis", en: "My" },
