@@ -121,24 +121,19 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Photo */}
+        {/* Photo — fade-in + hover scale (no spin) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="flex-shrink-0"
         >
           <motion.div
-            className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80"
-            whileHover={{ scale: 1.05 }}
+            className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 group cursor-pointer"
+            whileHover={{ scale: 1.06 }}
             transition={{ type: "spring", stiffness: 200 }}
           >
-            <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-accent p-1"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              style={{ backgroundSize: "200% 200%" }}
-            >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-accent p-1 transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-primary/30">
               <div className="w-full h-full rounded-full overflow-hidden bg-background">
                 <img
                   src={profileImg}
@@ -148,7 +143,7 @@ const HeroSection = () => {
                   height={320}
                 />
               </div>
-            </motion.div>
+            </div>
             {/* Glow ring */}
             <motion.div
               className="absolute -inset-3 rounded-full border border-primary/20"
