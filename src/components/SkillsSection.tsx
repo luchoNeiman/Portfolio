@@ -33,7 +33,7 @@ const SkillsSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl font-bold text-center mb-14"
+          className="text-3xl sm:text-4xl font-heading font-bold text-center mb-14"
         >
           {t("skills.title1")} <span className="text-gradient">{t("skills.title2")}</span>
         </motion.h2>
@@ -45,8 +45,12 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              whileHover={{ y: -8 }}
-              className="glass rounded-2xl p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
+              whileHover={{
+                y: -8,
+                scale: 1.015,
+                transition: { type: "spring", stiffness: 250, damping: 18 },
+              }}
+              className="glass rounded-xl p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
             >
               <div className="flex items-center gap-3 mb-5">
                 <motion.div
@@ -56,7 +60,7 @@ const SkillsSection = () => {
                 >
                   <cat.icon className="h-5 w-5 text-primary" />
                 </motion.div>
-                <h3 className="font-semibold text-lg">{cat.title}</h3>
+                <h3 className="font-heading font-semibold text-lg">{cat.title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {cat.skills.map((s, si) => (
@@ -65,8 +69,12 @@ const SkillsSection = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={inView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.3, delay: 0.3 + i * 0.1 + si * 0.04 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 cursor-default transition-colors hover:bg-primary hover:text-primary-foreground"
+                    whileHover={{
+                      scale: 1.08,
+                      y: -2,
+                      transition: { type: "spring", stiffness: 320, damping: 16 },
+                    }}
+                    className="px-3 py-1.5 text-xs font-body font-medium rounded-full bg-primary/10 text-primary border border-primary/20 cursor-default transition-colors hover:bg-primary hover:text-primary-foreground"
                   >
                     {s}
                   </motion.span>

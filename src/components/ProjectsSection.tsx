@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Github, ExternalLink, X } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import {
@@ -10,10 +10,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import soundspotImg from "@/assets/project-soundpulse.jpg";
+import soundspotImg from "@/assets/project-soundspot.jpg";
 import umamiImg from "@/assets/project-umami.jpg";
-import undergroundImg from "@/assets/project-uxchallenge.jpg";
-import soundpulseImg from "@/assets/project-soundpulse-updated.jpg";
+import undergroundImg from "@/assets/project-underground.jpg";
+import soundpulseImg from "@/assets/project-soundpulse.jpg";
+import umaiuxchallengeImg from "@/assets/project-uxchallenge.jpeg";
 
 interface Project {
   title: string;
@@ -93,10 +94,12 @@ const ProjectsSection = () => {
       fullDesc: lang === "es"
         ? "Participé de la competencia educativa de diseño de experiencia de usuario. Durante una semana trabajamos en equipo para idear, diseñar y prototipar una solución digital a problemáticas de la Ciudad de Buenos Aires. Tuvimos capacitaciones intensivas a cargo de profesionales de distintas empresas donde aprendimos sobre gestión de proyectos, diseño UI, diseño UX e investigación de usuarios."
         : "I participated in an educational UX design competition. During one week we worked as a team to ideate, design and prototype a digital solution for urban issues in Buenos Aires. We received intensive training from professionals of various companies where we learned about project management, UI design, UX design and user research.",
-      image: undergroundImg,
+      image: umaiuxchallengeImg,
       tags: ["Figma", "UX Research", "Prototipado"],
     },
   ];
+
+  const hasOrphanLastCard = projects.length % 2 !== 0;
 
   return (
     <>
@@ -106,51 +109,55 @@ const ProjectsSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-14"
+            className="text-3xl sm:text-4xl font-heading font-bold text-center mb-14"
           >
             {t("projects.title1")} <span className="text-gradient">{t("projects.title2")}</span>
           </motion.h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((p, i) => (
               <motion.div
                 key={p.title + i}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                whileHover={{ y: -8 }}
+                whileHover={{
+                  y: -8,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 250, damping: 18 },
+                }}
                 onClick={() => setSelected(p)}
-                className="glass rounded-2xl overflow-hidden cursor-pointer transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/10 group"
+                className={`glass rounded-xl overflow-hidden cursor-pointer transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/10 group ${hasOrphanLastCard && i === projects.length - 1 ? "md:col-span-2" : ""}`}
               >
                 <div className="relative overflow-hidden">
                   <img
                     src={p.image}
                     alt={p.title}
                     loading="lazy"
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-56 md:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-sm font-medium text-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-sm font-body font-medium text-foreground bg-background/60 backdrop-blur-sm px-4 py-2 rounded-full">
                       {lang === "es" ? "Ver detalles" : "View details"}
                     </span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2">
+                <div className="p-6 md:p-7">
+                  <h3 className="text-xl font-heading font-bold mb-2">{p.title}</h3>
+                  <p className="text-muted-foreground font-body text-sm mb-4 leading-relaxed line-clamp-2">
                     {p.shortDesc}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {p.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-1 text-xs rounded-full bg-secondary text-secondary-foreground"
+                        className="px-2.5 py-1 text-xs font-body rounded-full bg-secondary text-secondary-foreground"
                       >
                         {tag}
                       </span>
                     ))}
                     {p.tags.length > 3 && (
-                      <span className="px-2.5 py-1 text-xs rounded-full bg-secondary text-secondary-foreground">
+                      <span className="px-2.5 py-1 text-xs font-body rounded-full bg-secondary text-secondary-foreground">
                         +{p.tags.length - 3}
                       </span>
                     )}
@@ -164,9 +171,9 @@ const ProjectsSection = () => {
 
       {/* Project Modal */}
       <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto bg-card/90 backdrop-blur-2xl border border-border/30 shadow-2xl shadow-primary/5">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto bg-card/85 text-foreground backdrop-blur-2xl border border-border/60 shadow-2xl shadow-black/20 dark:bg-card/75 dark:shadow-black/45">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">{selected?.title}</DialogTitle>
+            <DialogTitle className="text-2xl font-heading font-bold">{selected?.title}</DialogTitle>
             <DialogDescription className="sr-only">
               {selected?.title} project details
             </DialogDescription>
@@ -177,16 +184,16 @@ const ProjectsSection = () => {
               <img
                 src={selected.image}
                 alt={selected.title}
-                className="w-full h-48 object-cover rounded-lg mx-0 px-0 py-0"
+                className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-secondary/40 border border-border/50"
               />
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-sm font-body leading-relaxed text-muted-foreground">
                 {selected.fullDesc}
               </p>
               <div className="flex flex-wrap gap-2">
                 {selected.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+                    className="px-3 py-1 text-xs font-body font-medium rounded-full bg-primary/12 text-primary border border-primary/30 transition-colors hover:bg-accent/15 hover:text-accent hover:border-accent/40"
                   >
                     {tag}
                   </span>
@@ -194,7 +201,7 @@ const ProjectsSection = () => {
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
                 {selected.liveUrl ? (
-                  <Button asChild size="sm">
+                  <Button asChild size="sm" className="shadow-sm">
                     <a href={selected.liveUrl} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       {lang === "es" ? "Visitar web" : "Visit website"}
@@ -206,7 +213,12 @@ const ProjectsSection = () => {
                   </Button>
                 )}
                 {selected.github && (
-                  <Button variant="outline" size="sm" asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="border-primary/40 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                  >
                     <a href={selected.github} target="_blank" rel="noopener noreferrer">
                       <Github className="mr-2 h-4 w-4" />
                       {t("projects.code")}

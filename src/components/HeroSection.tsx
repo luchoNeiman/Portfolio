@@ -78,15 +78,15 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-primary font-medium mb-2 tracking-wider text-sm uppercase"
+            className="text-primary font-body font-medium mb-2 tracking-wider text-sm uppercase"
           >
             {t("hero.welcome")}
           </motion.p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-4">
             Luciano Agustín{" "}
             <span className="text-gradient">Neiman</span>
           </h1>
-          <div className="text-xl sm:text-2xl text-muted-foreground font-medium mb-8 h-8">
+          <div className="text-xl sm:text-2xl text-muted-foreground font-body font-medium mb-8 h-8">
             <span>{displayed}</span>
             <motion.span
               className="inline-block w-0.5 h-6 bg-primary ml-0.5 align-middle"
