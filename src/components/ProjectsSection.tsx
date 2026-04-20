@@ -53,8 +53,8 @@ const ProjectsSection = () => {
         ? "E-commerce con pasarela de pagos Mercado Pago y Webhooks en tiempo real."
         : "E-commerce with Mercado Pago payment gateway and real-time Webhooks.",
       fullDesc: lang === "es"
-        ? "Plataforma E-commerce integral de alto rendimiento. Su principal desafío técnico fue la integración completa y segura de la pasarela de pagos de Mercado Pago, gestionando transacciones y procesando notificaciones de estado en tiempo real mediante Webhooks."
-        : "High-performance, comprehensive E-commerce platform. Its main technical challenge was the complete and secure integration of the Mercado Pago payment gateway, managing transactions and processing real-time status notifications via Webhooks.",
+        ? "UMAMI es una plataforma de gestión gastronómica Full Stack desarrollada en Laravel bajo el patrón MVC. El sistema permite digitalizar ventas mediante un catálogo interactivo con carrito de compras e integración de Mercado Pago. Incluye además un panel administrativo para controlar stock y pedidos en tiempo real."
+        : "UMAMI is a Full Stack gastronomic management platform built in Laravel following the MVC pattern. The system digitizes sales through an interactive catalog with a shopping cart and Mercado Pago integration. It also includes an admin panel to control stock and orders in real time.",
       image: umamiImg,
       tags: ["Laravel 11", "PHP", "Webhooks", "MySQL"],
       github: "https://github.com/luchoNeiman/UMAMI",
