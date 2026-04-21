@@ -56,7 +56,7 @@ const ProjectsSection = () => {
         ? "UMAMI es una plataforma de gestión gastronómica Full Stack desarrollada en Laravel bajo el patrón MVC. El sistema permite digitalizar ventas mediante un catálogo interactivo con carrito de compras e integración de Mercado Pago. Incluye además un panel administrativo para controlar stock y pedidos en tiempo real."
         : "UMAMI is a Full Stack gastronomic management platform built in Laravel following the MVC pattern. The system digitizes sales through an interactive catalog with a shopping cart and Mercado Pago integration. It also includes an admin panel to control stock and orders in real time.",
       image: umamiImg,
-      tags: ["Laravel 11", "PHP", "Webhooks", "MySQL"],
+      tags: ["Laravel 11", "PHP", "Webhooks", "MySQL", "Aiven", "DBeaver"],
       github: "https://github.com/luchoNeiman/UMAMI",
       liveUrl: "https://umami-jade-chi.vercel.app/",
     },
