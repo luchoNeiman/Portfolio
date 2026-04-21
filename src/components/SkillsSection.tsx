@@ -17,7 +17,7 @@ const SkillsSection = () => {
     {
       icon: Server,
       title: t("skills.backend"),
-      skills: ["Node.js", "PHP", "C#", "ASP.NET MVC", "Laravel 11", "SQL Server", "MySQL", "MongoDB", "MariaDB", "Supabase"],
+      skills: ["Node.js", "PHP", "C#", "ASP.NET MVC", "Laravel 11", "SQL Server", "MySQL", "MongoDB", "MariaDB", "Supabase", "Aiven", "DBeaver"],
     },
     {
       icon: Palette,

@@ -58,7 +58,7 @@ const ProjectsSection = () => {
       image: umamiImg,
       tags: ["Laravel 11", "PHP", "Webhooks", "MySQL"],
       github: "https://github.com/luchoNeiman/UMAMI",
-      liveLabel: lang === "es" ? "Deploy en proceso" : "Deploy in progress",
+      liveUrl: "https://umami-jade-chi.vercel.app/",
     },
     {
       title: "Underground",
