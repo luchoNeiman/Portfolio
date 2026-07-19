@@ -84,7 +84,7 @@ const ProjectsSection = () => {
       image: soundpulseImg,
       tags: ["Vue.js", "Vite", "CSS moderno"],
       github: "https://github.com/luchoNeiman/Soundpulse",
-      liveLabel: lang === "es" ? "Deploy en proceso" : "Deploy in progress",
+      liveUrl: "https://soundpulse-xi.vercel.app/",
     },
     {
       title: "UMAI UX Challenge",
