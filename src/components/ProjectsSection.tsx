@@ -144,13 +144,23 @@ const ProjectsSection = () => {
                 onClick={() => setSelected(p)}
                 className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-border/50 bg-card/40 backdrop-blur-xl shadow-lg shadow-black/20 transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/20 min-h-[260px] ${bentoClasses[i] ?? "md:col-span-3"}`}
               >
-                {/* Background image */}
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
+                {/* Background image or decorative fallback */}
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/10 to-background transition-transform duration-700 ease-out group-hover:scale-105">
+                    <div className="absolute inset-0" style={{ background: "radial-gradient(500px circle at 30% 20%, hsl(var(--primary) / 0.25), transparent 60%)" }} />
+                    <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+                    <span className="absolute top-4 right-4 px-2.5 py-1 text-[10px] font-body font-medium rounded-full border border-primary/40 bg-background/60 backdrop-blur text-primary uppercase tracking-wider">
+                      {lang === "es" ? "Próximamente" : "Coming soon"}
+                    </span>
+                  </div>
+                )}
 
                 {/* Base gradient (always visible) */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
