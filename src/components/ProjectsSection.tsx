@@ -221,11 +221,20 @@ const ProjectsSection = () => {
 
           {selected && (
             <div className="space-y-5">
-              <img
-                src={selected.image}
-                alt={selected.title}
-                className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-slate-900/80 border border-slate-700/70"
-              />
+              {selected.image ? (
+                <img
+                  src={selected.image}
+                  alt={selected.title}
+                  className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-slate-900/80 border border-slate-700/70"
+                />
+              ) : (
+                <div className="w-full h-48 md:h-56 rounded-xl border border-slate-700/70 bg-slate-900/80 flex items-center justify-center overflow-hidden relative">
+                  <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+                  <span className="relative px-3 py-1 text-xs font-body font-medium rounded-full border border-primary/40 bg-background/60 text-primary uppercase tracking-wider">
+                    {lang === "es" ? "Próximamente" : "Coming soon"}
+                  </span>
+                </div>
+              )}
               <p className="text-sm font-body leading-relaxed text-slate-300">
                 {selected.fullDesc}
               </p>
@@ -247,11 +256,11 @@ const ProjectsSection = () => {
                       {lang === "es" ? "Visitar web" : "Visit website"}
                     </a>
                   </Button>
-                ) : (
+                ) : selected.liveLabel ? (
                   <Button size="sm" disabled variant="secondary">
                     {selected.liveLabel}
                   </Button>
-                )}
+                ) : null}
                 {selected.github && (
                   <Button
                     variant="outline"
