@@ -25,8 +25,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "about.title1": { es: "Sobre", en: "About" },
   "about.title2": { es: "Mí", en: "Me" },
   "about.text": {
-    es: "Soy un Desarrollador Web Full Stack apasionado por la creación de experiencias digitales integrales. Mi perfil híbrido me permite combinar la lógica técnica del desarrollo backend y frontend con una mirada estratégica enfocada en el diseño UI/UX. Actualmente busco mi primera oportunidad profesional en el sector IT para seguir desarrollándome. A tu equipo puedo aportarle la capacidad de transformar ideas en productos funcionales y escalables, abarcando todo el ciclo de vida del proyecto: desde el prototipado interactivo en Figma hasta la implementación de arquitecturas robustas e interfaces inmersivas. Estoy listo para sumar proactividad, código limpio y resultados reales.",
-    en: "I'm a Full Stack Web Developer passionate about creating comprehensive digital experiences. My hybrid profile allows me to combine the technical logic of backend and frontend development with a strategic focus on UI/UX design. I'm currently looking for my first professional opportunity in the IT sector to continue growing. I can bring to your team the ability to transform ideas into functional and scalable products, covering the entire project lifecycle: from interactive prototyping in Figma to the implementation of robust architectures and immersive interfaces. I'm ready to contribute proactivity, clean code and real results.",
+    es: "Soy un Desarrollador Web Full Stack apasionado por la creación de experiencias digitales integrales. Mi perfil híbrido me permite combinar la lógica técnica del desarrollo backend y frontend con una mirada estratégica enfocada en el diseño UI/UX. Actualmente me desempeño profesionalmente en el sector IT, y sigo sumando experiencia en proyectos reales. A tu equipo puedo aportarle la capacidad de transformar ideas en productos funcionales y escalables, abarcando todo el ciclo de vida del proyecto: desde el prototipado interactivo en Figma hasta la implementación de arquitecturas robustas e interfaces inmersivas. Estoy listo para sumar proactividad, código limpio y resultados reales.",
+    en: "I'm a Full Stack Web Developer passionate about creating comprehensive digital experiences. My hybrid profile allows me to combine the technical logic of backend and frontend development with a strategic focus on UI/UX design. I'm currently working professionally in the IT sector, continuing to gain experience in real-world projects. I can bring to your team the ability to transform ideas into functional and scalable products, covering the entire project lifecycle: from interactive prototyping in Figma to the implementation of robust architectures and immersive interfaces. I'm ready to contribute proactivity, clean code and real results.",
   },
   "about.h1": { es: "Lic. en Tecnología Multimedial (UMAI) - 3er año", en: "B.S. in Multimedia Technology (UMAI) - 3rd year" },
   "about.h2": { es: "Tec. en Diseño y Programación Web (Escuela Da Vinci) - Tesis en curso", en: "Tech. in Web Design & Programming (Escuela Da Vinci) - Thesis in progress" },
@@ -60,8 +60,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "footer.title1": { es: "¿Trabajamos", en: "Shall we work" },
   "footer.title2": { es: "juntos", en: "together" },
   "footer.text": {
-    es: "Estoy buscando mi primera experiencia profesional (Junior / Trainee). Si tenés una oportunidad o simplemente querés conectar, ¡escribime!",
-    en: "I'm looking for my first professional experience (Junior / Trainee). If you have an opportunity or just want to connect, reach out!",
+    es: "Actualmente me encuentro trabajando en el sector IT y siempre abierto a nuevas oportunidades y colaboraciones. Si tenés un proyecto interesante o simplemente querés conectar, ¡escribime!",
+    en: "I'm currently working in the IT sector and always open to new opportunities and collaborations. If you have an interesting project or just want to connect, reach out!",
   },
   "footer.rights": { es: "Todos los derechos reservados.", en: "All rights reserved." },
 };

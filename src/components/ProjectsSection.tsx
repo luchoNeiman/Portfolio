@@ -20,12 +20,14 @@ interface Project {
   title: string;
   shortDesc: string;
   fullDesc: string;
-  image: string;
+  image?: string;
   tags: string[];
   github?: string;
   liveUrl?: string;
   liveLabel?: string;
+  comingSoon?: boolean;
 }
+
 
 const ProjectsSection = () => {
   const ref = useRef(null);
@@ -82,7 +84,7 @@ const ProjectsSection = () => {
         ? "Plataforma musical interactiva enfocada en una UI/UX moderna y transiciones fluidas. La arquitectura del proyecto prioriza el rendimiento optimizando la carga de recursos de imágenes mediante gestión de archivos locales en lugar de peticiones externas, operando por diseño sin barreras de autenticación."
         : "Interactive music platform focused on modern UI/UX and fluid transitions. The project architecture prioritizes performance by optimizing image resource loading through local file management instead of external requests, operating by design without authentication barriers.",
       image: soundpulseImg,
-      tags: ["Vue.js", "Vite", "CSS moderno"],
+      tags: ["Vue.js", "Vite", "TypeScript", "iTunes API", "CSS moderno"],
       github: "https://github.com/luchoNeiman/Soundpulse",
       liveUrl: "https://soundpulse-xi.vercel.app/",
     },
@@ -97,12 +99,23 @@ const ProjectsSection = () => {
       image: umaiuxchallengeImg,
       tags: ["Figma", "UX Research", "Prototipado"],
     },
+    ...(["Filmistry", "Luthier", "Provident", "AGBot"].map((name) => ({
+      title: name,
+      shortDesc: lang === "es" ? "Próximamente. Detalles en breve." : "Coming soon. Details shortly.",
+      fullDesc: lang === "es" ? "Este proyecto se sumará al portfolio próximamente." : "This project will be added to the portfolio soon.",
+      tags: [lang === "es" ? "Próximamente" : "Coming soon"],
+      comingSoon: true,
+    }))),
   ];
 
   const bentoClasses = [
     "md:col-span-4 md:row-span-2 min-h-[420px] md:min-h-0",
     "md:col-span-2 md:row-span-1",
     "md:col-span-2 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
     "md:col-span-3 md:row-span-1",
     "md:col-span-3 md:row-span-1",
   ];
@@ -131,13 +144,23 @@ const ProjectsSection = () => {
                 onClick={() => setSelected(p)}
                 className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-border/50 bg-card/40 backdrop-blur-xl shadow-lg shadow-black/20 transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/20 min-h-[260px] ${bentoClasses[i] ?? "md:col-span-3"}`}
               >
-                {/* Background image */}
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
+                {/* Background image or decorative fallback */}
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/10 to-background transition-transform duration-700 ease-out group-hover:scale-105">
+                    <div className="absolute inset-0" style={{ background: "radial-gradient(500px circle at 30% 20%, hsl(var(--primary) / 0.25), transparent 60%)" }} />
+                    <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+                    <span className="absolute top-4 right-4 px-2.5 py-1 text-[10px] font-body font-medium rounded-full border border-primary/40 bg-background/60 backdrop-blur text-primary uppercase tracking-wider">
+                      {lang === "es" ? "Próximamente" : "Coming soon"}
+                    </span>
+                  </div>
+                )}
 
                 {/* Base gradient (always visible) */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -198,11 +221,20 @@ const ProjectsSection = () => {
 
           {selected && (
             <div className="space-y-5">
-              <img
-                src={selected.image}
-                alt={selected.title}
-                className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-slate-900/80 border border-slate-700/70"
-              />
+              {selected.image ? (
+                <img
+                  src={selected.image}
+                  alt={selected.title}
+                  className="w-full h-64 md:h-72 object-contain rounded-xl mx-0 p-2 bg-slate-900/80 border border-slate-700/70"
+                />
+              ) : (
+                <div className="w-full h-48 md:h-56 rounded-xl border border-slate-700/70 bg-slate-900/80 flex items-center justify-center overflow-hidden relative">
+                  <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+                  <span className="relative px-3 py-1 text-xs font-body font-medium rounded-full border border-primary/40 bg-background/60 text-primary uppercase tracking-wider">
+                    {lang === "es" ? "Próximamente" : "Coming soon"}
+                  </span>
+                </div>
+              )}
               <p className="text-sm font-body leading-relaxed text-slate-300">
                 {selected.fullDesc}
               </p>
@@ -224,11 +256,11 @@ const ProjectsSection = () => {
                       {lang === "es" ? "Visitar web" : "Visit website"}
                     </a>
                   </Button>
-                ) : (
+                ) : selected.liveLabel ? (
                   <Button size="sm" disabled variant="secondary">
                     {selected.liveLabel}
                   </Button>
-                )}
+                ) : null}
                 {selected.github && (
                   <Button
                     variant="outline"
