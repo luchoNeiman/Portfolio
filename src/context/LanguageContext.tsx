@@ -60,8 +60,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "footer.title1": { es: "¿Trabajamos", en: "Shall we work" },
   "footer.title2": { es: "juntos", en: "together" },
   "footer.text": {
-    es: "Estoy buscando mi primera experiencia profesional (Junior / Trainee). Si tenés una oportunidad o simplemente querés conectar, ¡escribime!",
-    en: "I'm looking for my first professional experience (Junior / Trainee). If you have an opportunity or just want to connect, reach out!",
+    es: "Actualmente me encuentro trabajando en el sector IT y siempre abierto a nuevas oportunidades y colaboraciones. Si tenés un proyecto interesante o simplemente querés conectar, ¡escribime!",
+    en: "I'm currently working in the IT sector and always open to new opportunities and collaborations. If you have an interesting project or just want to connect, reach out!",
   },
   "footer.rights": { es: "Todos los derechos reservados.", en: "All rights reserved." },
 };
