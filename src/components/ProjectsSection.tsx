@@ -20,12 +20,14 @@ interface Project {
   title: string;
   shortDesc: string;
   fullDesc: string;
-  image: string;
+  image?: string;
   tags: string[];
   github?: string;
   liveUrl?: string;
   liveLabel?: string;
+  comingSoon?: boolean;
 }
+
 
 const ProjectsSection = () => {
   const ref = useRef(null);
