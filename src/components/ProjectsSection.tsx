@@ -84,7 +84,7 @@ const ProjectsSection = () => {
         ? "Plataforma musical interactiva enfocada en una UI/UX moderna y transiciones fluidas. La arquitectura del proyecto prioriza el rendimiento optimizando la carga de recursos de imágenes mediante gestión de archivos locales en lugar de peticiones externas, operando por diseño sin barreras de autenticación."
         : "Interactive music platform focused on modern UI/UX and fluid transitions. The project architecture prioritizes performance by optimizing image resource loading through local file management instead of external requests, operating by design without authentication barriers.",
       image: soundpulseImg,
-      tags: ["Vue.js", "Vite", "CSS moderno"],
+      tags: ["Vue.js", "Vite", "TypeScript", "iTunes API", "CSS moderno"],
       github: "https://github.com/luchoNeiman/Soundpulse",
       liveUrl: "https://soundpulse-xi.vercel.app/",
     },
