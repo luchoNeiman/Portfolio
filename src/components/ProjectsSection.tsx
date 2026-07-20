@@ -99,12 +99,23 @@ const ProjectsSection = () => {
       image: umaiuxchallengeImg,
       tags: ["Figma", "UX Research", "Prototipado"],
     },
+    ...(["Filmistry", "Luthier", "Provident", "AGBot"].map((name) => ({
+      title: name,
+      shortDesc: lang === "es" ? "Próximamente. Detalles en breve." : "Coming soon. Details shortly.",
+      fullDesc: lang === "es" ? "Este proyecto se sumará al portfolio próximamente." : "This project will be added to the portfolio soon.",
+      tags: [lang === "es" ? "Próximamente" : "Coming soon"],
+      comingSoon: true,
+    }))),
   ];
 
   const bentoClasses = [
     "md:col-span-4 md:row-span-2 min-h-[420px] md:min-h-0",
     "md:col-span-2 md:row-span-1",
     "md:col-span-2 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
+    "md:col-span-3 md:row-span-1",
     "md:col-span-3 md:row-span-1",
     "md:col-span-3 md:row-span-1",
   ];
