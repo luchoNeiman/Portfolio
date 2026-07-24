@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { ArrowDown, Send, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import profileImg from "@/assets/profile.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const roles = ["Full Stack Developer", "Frontend Developer", "Backend Developer", "UI/UX Designer"];
 
