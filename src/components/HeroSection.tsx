@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { ArrowDown, Send, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import profileImg from "@/assets/profile.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const roles = ["Full Stack Developer", "Frontend Developer", "Backend Developer", "UI/UX Designer"];
 
@@ -36,17 +36,64 @@ const HeroSection = () => {
     return () => clearTimeout(timeout);
   }, [displayed, deleting, roleIndex]);
 
+  // Interactive fluid background reacting to mouse
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const mouseX = useMotionValue(50);
+  const mouseY = useMotionValue(50);
+  const smoothX = useSpring(mouseX, { stiffness: 60, damping: 20, mass: 0.6 });
+  const smoothY = useSpring(mouseY, { stiffness: 60, damping: 20, mass: 0.6 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(((e.clientX - rect.left) / rect.width) * 100);
+    mouseY.set(((e.clientY - rect.top) / rect.height) * 100);
+  };
+
+  const fluidBg = useMotionTemplate`
+    radial-gradient(600px circle at ${smoothX}% ${smoothY}%, hsl(var(--primary) / 0.35), transparent 60%),
+    radial-gradient(500px circle at ${useTransform(smoothX, (v) => 100 - v)}% ${useTransform(smoothY, (v) => 100 - v)}%, hsl(var(--accent) / 0.28), transparent 65%),
+    radial-gradient(800px circle at 50% 50%, hsl(217 91% 60% / 0.12), transparent 70%)
+  `;
+
+  const orbX = useTransform(smoothX, [0, 100], [-40, 40]);
+  const orbY = useTransform(smoothY, [0, 100], [-30, 30]);
+  const orb2X = useTransform(smoothX, [0, 100], [40, -40]);
+  const orb2Y = useTransform(smoothY, [0, 100], [30, -30]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated gradient orbs */}
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Interactive fluid gradient layer */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+        style={{ background: fluidBg }}
+      />
+      {/* Subtle noise/grid for depth */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      {/* Animated gradient orbs that drift with the cursor */}
       <motion.div
         className="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
-        animate={{ x: [0, 30, 0], y: [0, -20, 0], scale: [1, 1.1, 1] }}
+        style={{ x: orbX, y: orbY }}
+        animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute -bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
-        animate={{ x: [0, -30, 0], y: [0, 20, 0], scale: [1, 1.15, 1] }}
+        style={{ x: orb2X, y: orb2Y }}
+        animate={{ scale: [1, 1.15, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
