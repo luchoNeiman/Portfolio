@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { useRef, useState, type MouseEvent } from "react";
 import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
@@ -135,71 +135,15 @@ const ProjectsSection = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-6 md:auto-rows-[220px] gap-4 md:gap-5">
             {projects.map((p, i) => (
-              <motion.div
+              <ProjectCard
                 key={p.title + i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -6, transition: { type: "spring", stiffness: 260, damping: 20 } }}
-                onClick={() => setSelected(p)}
-                className={`group relative overflow-hidden rounded-2xl cursor-pointer border border-border/50 bg-card/40 backdrop-blur-xl shadow-lg shadow-black/20 transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary/20 min-h-[260px] ${bentoClasses[i] ?? "md:col-span-3"}`}
-              >
-                {/* Background image or decorative fallback */}
-                {p.image ? (
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/10 to-background transition-transform duration-700 ease-out group-hover:scale-105">
-                    <div className="absolute inset-0" style={{ background: "radial-gradient(500px circle at 30% 20%, hsl(var(--primary) / 0.25), transparent 60%)" }} />
-                    <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-                    <span className="absolute top-4 right-4 px-2.5 py-1 text-[10px] font-body font-medium rounded-full border border-primary/40 bg-background/60 backdrop-blur text-primary uppercase tracking-wider">
-                      {lang === "es" ? "Próximamente" : "Coming soon"}
-                    </span>
-                  </div>
-                )}
-
-                {/* Base gradient (always visible) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-
-                {/* Accent glow on hover */}
-                <div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(600px circle at 50% 100%, hsl(var(--primary) / 0.25), transparent 60%)" }} />
-
-                {/* Title bar (base state) */}
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-2">
-                  <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground drop-shadow">
-                    {p.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground font-body mt-1 line-clamp-1">
-                    {p.tags.slice(0, 3).join(" · ")}
-                  </p>
-                </div>
-
-                {/* Hover reveal panel */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6 bg-gradient-to-t from-background/95 via-background/85 to-background/40 backdrop-blur-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  <h3 className="text-xl md:text-2xl font-heading font-bold mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed mb-3 line-clamp-3">
-                    {p.shortDesc}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {p.tags.slice(0, 4).map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 text-[10px] font-body rounded-full border border-primary/30 bg-primary/10 text-primary"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-body font-medium text-primary">
-                    {lang === "es" ? "Ver detalles" : "View details"}
-                    <ExternalLink className="h-3 w-3" />
-                  </span>
-                </div>
-              </motion.div>
+                project={p}
+                index={i}
+                inView={inView}
+                lang={lang}
+                onOpen={() => setSelected(p)}
+                className={bentoClasses[i] ?? "md:col-span-3"}
+              />
             ))}
           </div>
 
@@ -280,6 +224,138 @@ const ProjectsSection = () => {
         </DialogContent>
       </Dialog>
     </>
+  );
+};
+
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+  inView: boolean;
+  lang: string;
+  onOpen: () => void;
+  className: string;
+}
+
+const ProjectCard = ({ project: p, index: i, inView, lang, onOpen, className }: ProjectCardProps) => {
+  // Normalized mouse position within the card (-0.5 .. 0.5)
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 180, damping: 18, mass: 0.4 });
+  const sy = useSpring(my, { stiffness: 180, damping: 18, mass: 0.4 });
+
+  // Tilt (invert Y so top-hover tilts card away from user)
+  const rotateX = useTransform(sy, [-0.5, 0.5], [8, -8]);
+  const rotateY = useTransform(sx, [-0.5, 0.5], [-10, 10]);
+
+  // Glare position (0-100%)
+  const glareX = useTransform(sx, [-0.5, 0.5], [0, 100]);
+  const glareY = useTransform(sy, [-0.5, 0.5], [0, 100]);
+  const glare = useMotionTemplate`radial-gradient(420px circle at ${glareX}% ${glareY}%, hsl(var(--primary) / 0.28), transparent 55%)`;
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: i * 0.1 }}
+      onClick={onOpen}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ perspective: 1000 }}
+      className={`group relative cursor-pointer min-h-[260px] ${className}`}
+    >
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative w-full h-full overflow-hidden rounded-xl border border-border/50 bg-card/40 backdrop-blur-xl shadow-lg shadow-black/20 transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-primary/20"
+      >
+        {/* Background image or decorative fallback */}
+        {p.image ? (
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-primary/10 to-background transition-transform duration-700 ease-out group-hover:scale-105">
+            <div className="absolute inset-0" style={{ background: "radial-gradient(500px circle at 30% 20%, hsl(var(--primary) / 0.25), transparent 60%)" }} />
+            <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+            <span className="absolute top-4 right-4 px-2.5 py-1 text-[10px] font-body font-medium rounded-full border border-primary/40 bg-background/60 backdrop-blur text-primary uppercase tracking-wider">
+              {lang === "es" ? "Próximamente" : "Coming soon"}
+            </span>
+          </div>
+        )}
+
+        {/* Base gradient (always visible) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+
+        {/* Dynamic glare that follows the cursor */}
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-screen"
+          style={{ background: glare }}
+        />
+
+        {/* Title bar (base state) — sits slightly forward */}
+        <div
+          style={{ transform: "translateZ(30px)" }}
+          className="absolute inset-x-0 bottom-0 p-5 md:p-6 transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-2"
+        >
+          <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground drop-shadow">
+            {p.title}
+          </h3>
+          <p className="text-xs md:text-sm text-muted-foreground font-body mt-1 line-clamp-1">
+            {p.tags.slice(0, 3).join(" · ")}
+          </p>
+        </div>
+
+        {/* Hover reveal panel with layered depth (translateZ) */}
+        <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6 bg-gradient-to-t from-background/95 via-background/85 to-background/40 backdrop-blur-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+          <h3
+            style={{ transform: "translateZ(60px)" }}
+            className="text-xl md:text-2xl font-heading font-bold mb-2"
+          >
+            {p.title}
+          </h3>
+          <p
+            style={{ transform: "translateZ(40px)" }}
+            className="text-sm text-muted-foreground font-body leading-relaxed mb-3 line-clamp-3"
+          >
+            {p.shortDesc}
+          </p>
+          <div
+            style={{ transform: "translateZ(75px)" }}
+            className="flex flex-wrap gap-1.5 mb-4"
+          >
+            {p.tags.slice(0, 4).map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-0.5 text-[10px] font-body rounded-full border border-primary/30 bg-primary/10 text-primary shadow-sm shadow-primary/10"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <span
+            style={{ transform: "translateZ(90px)" }}
+            className="inline-flex items-center gap-1.5 text-xs font-body font-medium text-primary"
+          >
+            {lang === "es" ? "Ver detalles" : "View details"}
+            <ExternalLink className="h-3 w-3" />
+          </span>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
