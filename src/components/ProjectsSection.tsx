@@ -1,6 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { useRef, useState, type MouseEvent } from "react";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import {
@@ -26,6 +26,7 @@ interface Project {
   liveUrl?: string;
   liveLabel?: string;
   comingSoon?: boolean;
+  statusNote?: { es: string; en: string };
 }
 
 
@@ -48,6 +49,10 @@ const ProjectsSection = () => {
       tags: ["Vue.js", "JavaScript (ES6+)", "REST APIs", "HTML5", "CSS3"],
       github: "https://github.com/luchoNeiman/Soundspot",
       liveUrl: "https://soundspot-pearl.vercel.app/",
+      statusNote: {
+        es: "Nota: el sitio depende de una API externa (Ticketmaster). Si los eventos no cargan, puede deberse a una falla o límite temporal del servicio externo, no de la aplicación.",
+        en: "Note: this site depends on an external API (Ticketmaster). If events don't load, it may be due to a temporary issue or rate limit on the external service, not the application itself.",
+      },
     },
     {
       title: "UMAMI",
@@ -61,6 +66,10 @@ const ProjectsSection = () => {
       tags: ["Laravel 11", "PHP", "Webhooks", "MySQL", "Aiven", "DBeaver"],
       github: "https://github.com/luchoNeiman/UMAMI",
       liveUrl: "https://umami-jade-chi.vercel.app/",
+      statusNote: {
+        es: "Nota: la base de datos corre en Aiven (free tier), que la pausa tras 7 días de inactividad. Si el login o los datos no responden, es por esa pausa del servicio, no por un error de la aplicación.",
+        en: "Note: the database runs on Aiven (free tier), which pauses it after 7 days of inactivity. If login or data don't respond, it's due to that service pause, not an application error.",
+      },
     },
     {
       title: "Underground",
@@ -74,6 +83,10 @@ const ProjectsSection = () => {
       tags: ["Vue 3", "Supabase", "JavaScript"],
       github: "https://github.com/luchoNeiman/Underground",
       liveUrl: "https://underground-cinema.vercel.app/",
+      statusNote: {
+        es: "Nota: usa Supabase (free tier), que pausa la base de datos tras 7 días de inactividad. Si el login o las interacciones sociales fallan, es por esa pausa del servicio, no por un error de la aplicación.",
+        en: "Note: it uses Supabase (free tier), which pauses the database after 7 days of inactivity. If login or social interactions fail, it's due to that service pause, not an application error.",
+      },
     },
     {
       title: "Soundpulse",
@@ -87,6 +100,10 @@ const ProjectsSection = () => {
       tags: ["Vue.js", "Vite", "TypeScript", "iTunes API", "CSS moderno"],
       github: "https://github.com/luchoNeiman/Soundpulse",
       liveUrl: "https://soundpulse-xi.vercel.app/",
+      statusNote: {
+        es: "Nota: el catálogo musical depende de una API externa (iTunes). Si las canciones no cargan, puede deberse a una falla temporal del servicio externo, no de la aplicación.",
+        en: "Note: the music catalog depends on an external API (iTunes). If songs don't load, it may be due to a temporary issue with the external service, not the application itself.",
+      },
     },
     {
       title: "UMAI UX Challenge",
@@ -182,6 +199,14 @@ const ProjectsSection = () => {
               <p className="text-sm font-body leading-relaxed text-slate-300">
                 {selected.fullDesc}
               </p>
+              {selected.statusNote && (
+                <div className="flex items-start gap-2.5 rounded-lg border border-amber-400/25 bg-amber-500/[0.07] px-3.5 py-3">
+                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-300/90" />
+                  <p className="text-xs font-body leading-relaxed text-amber-100/80">
+                    {lang === "es" ? selected.statusNote.es : selected.statusNote.en}
+                  </p>
+                </div>
+              )}
               <div className="flex flex-wrap gap-2">
                 {selected.tags.map((tag) => (
                   <span
