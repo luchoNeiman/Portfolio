@@ -26,6 +26,7 @@ interface Project {
   liveUrl?: string;
   liveLabel?: string;
   comingSoon?: boolean;
+  statusNote?: { es: string; en: string };
 }
 
 
