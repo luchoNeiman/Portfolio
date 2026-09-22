@@ -297,7 +297,7 @@ const ProjectCard = ({ project: p, index: i, inView, lang, onOpen, className }: 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: 1000 }}
-      className={`group relative cursor-pointer min-h-[260px] ${className}`}
+      className={`group relative cursor-pointer min-h-[260px] md:min-h-0 ${className}`}
     >
       <motion.div
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
@@ -323,6 +323,19 @@ const ProjectCard = ({ project: p, index: i, inView, lang, onOpen, className }: 
 
         {/* Base gradient (always visible) */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+
+        {/* Availability note indicator */}
+        {p.statusNote && (
+          <div
+            style={{ transform: "translateZ(50px)" }}
+            className="absolute top-4 left-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-amber-400/40 bg-background/70 backdrop-blur text-amber-300 shadow-sm"
+          >
+            <Info className="h-3 w-3" />
+            <span className="text-[10px] font-body font-medium uppercase tracking-wider">
+              {lang === "es" ? "Nota" : "Note"}
+            </span>
+          </div>
+        )}
 
         {/* Dynamic glare that follows the cursor */}
         <motion.div
