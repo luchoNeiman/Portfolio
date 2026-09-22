@@ -1,6 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import { useRef, useState, type MouseEvent } from "react";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import {
@@ -199,6 +199,14 @@ const ProjectsSection = () => {
               <p className="text-sm font-body leading-relaxed text-slate-300">
                 {selected.fullDesc}
               </p>
+              {selected.statusNote && (
+                <div className="flex items-start gap-2.5 rounded-lg border border-amber-400/25 bg-amber-500/[0.07] px-3.5 py-3">
+                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-300/90" />
+                  <p className="text-xs font-body leading-relaxed text-amber-100/80">
+                    {lang === "es" ? selected.statusNote.es : selected.statusNote.en}
+                  </p>
+                </div>
+              )}
               <div className="flex flex-wrap gap-2">
                 {selected.tags.map((tag) => (
                   <span
