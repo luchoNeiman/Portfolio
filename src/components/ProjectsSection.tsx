@@ -49,6 +49,10 @@ const ProjectsSection = () => {
       tags: ["Vue.js", "JavaScript (ES6+)", "REST APIs", "HTML5", "CSS3"],
       github: "https://github.com/luchoNeiman/Soundspot",
       liveUrl: "https://soundspot-pearl.vercel.app/",
+      statusNote: {
+        es: "Nota: el sitio depende de una API externa (Ticketmaster). Si los eventos no cargan, puede deberse a una falla o límite temporal del servicio externo, no de la aplicación.",
+        en: "Note: this site depends on an external API (Ticketmaster). If events don't load, it may be due to a temporary issue or rate limit on the external service, not the application itself.",
+      },
     },
     {
       title: "UMAMI",
